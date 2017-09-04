@@ -1,0 +1,106 @@
+---
+title: "Data analysis of Significant Earthquake Data from the NOAA"
+author: "RM Hoek"
+date: "27/08/2017"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data analysis of Significant Earthquake Data from the NOAA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(NOAAearthquakeAnalysis)
+```
+
+## Analyse the NOAA significant earthquake dataset
+
+As part of the U.S. National Oceanographic and Atmospheric Administration (NOAA) the National Centers for Environmental Information (NCEI; formerly the National Geophysical Data Center (NGDC)) maintains the Significant Earthquake Database (SED). This database contains a wealth of information on more than 5,900 destructive earthquakes from 2150 B.C. to the present. To be recorded in this database an earthquake either must have lead to Moderate damage (more than $1 million), resulted in 10 or more deaths, had a Magnitude 7.5 or greater on the Richter scale, had an Intensity X or greater on the Modified Mercalli scale or generated a tsunami. A myriad of information is collected, an overview of which can be found at: <https://www.ngdc.noaa.gov/nndc/struts/results?&t=101650&s=225&d=225>. In this raw dataset there are 47 variables.
+  The NOAAearthquakeAnalysis package contains functions to facilitate access to a substantial amount of data embedded in the SED and is designed to aid in the data analysis. They enable the user to clean the database to the essential variables, graph SED data on a time line, and create interactive maps that can be annotated with SED data.
+
+First the data from the NOAA website needs to be downloaded and prepared for use This can be done in R using the following code:
+
+```{r data_Gather_Clean}
+#get earthquake data (tab-delimited txt file) from noaa website into a tibble
+eq_data_file <- paste0("https://www.ngdc.noaa.gov/nndc/struts/", 
+                       "results?type_0=Exact&query_0=$ID&", 
+                       "t=101650&s=13&d=189&dfn=signif.txt")
+eq_data <- readr::read_delim(eq_data_file, delim = "\t")
+# the data can be written to the wd for later use:
+# readr::write_tsv(eq_data, file.path(getwd(), "earthquakes.tsv.gz"))
+
+## an example of the data downloaded on 27 July 2017 is present in 
+## this package in /extdata, use: 
+## system.file("extdata", "earthquakes.tsv.gz", 
+##             package = "NOAAearthquakeAnalysis")
+
+# next, clean the data (see for details below, and MAN of eq_clean_data())
+eq_data_clean <- eq_clean_data(eq_data)
+head(eq_data_clean, n = 6L)
+```
+The cleaning of the data consistes of combining date and time information in one column (DATE) containing lubridate date objects per recorded event. Also some of the detailed seismic information is left out and only the variables with TOTAL_* in the title are kept (DEATHS, MISSING, INJURIES, DAMAGE_MILLIONS_DOLLARS, HOUSES_DESTROYED, HOUSES_DAMAGED). There are a total of 17 variables left.
+
+
+## Timeline plots
+
+Once the data is cleaned the geom_timeline(), geom_timeline_label() and theme_timeline() can be used in conjuction with ggplot2 to create an overview of the earthquake data in timeline charts. The x aesthetic that is required should have the date information (the DATE column from the 'data.frame' resulting from the cleaning of the raw dataset). The y aesthetic can be used for grouping purposses, for example by COUNTRY. Furthermore, colour and size aesthetics can be used to incorporate more detail, for example size can be linked to magnitude (for example EQ_PRIMARY) and colour can represent death toll (TOTAL_DEATHS in cleaned data). Using geom_timeline_label() the data points can be labelled, for example with the location info from the LOCATION column in the cleaned data frame. One can even create a subset of labels of the events with the highest magnitude, using the optional n_max aesthetics. A note of warning: if the n_max option is used, the size option should also be defined, as the n_max takes that number of higest in size in the plot to add labels to. The optimal theme for the timeline (theme_timeline()) is contained in this package too. Thus a simple chart can be prepared by the following code:
+
+```{r simple_timeline}
+# use the cleaned data to create a simple timeline
+eq_data_clean %>% 
+    filter(COUNTRY == "ITALY", year(DATE) > 1985) %>% 
+    ggplot(aes(x = DATE, 
+               y = COUNTRY, 
+               size = EQ_PRIMARY)) + 
+    geom_timeline() + 
+    geom_timeline_label(aes(label = LOCATION)) + 
+    theme_timeline()
+```
+
+But a chart can contain multiple timelines, for example grouped by country, as in:
+
+```{r complex_timeline}
+#or a more complex timeline plot
+eq_data_clean %>% 
+    filter(COUNTRY %in% c("GREECE", "ITALY"), year(DATE) > 2000) %>% 
+    ggplot(aes(x = DATE, 
+               y = COUNTRY, 
+               color = TOTAL_DEATHS, 
+               size = EQ_PRIMARY)) + 
+    geom_timeline() + 
+    geom_timeline_label(aes(label = LOCATION), n_max = 8) + 
+    theme_timeline() + 
+    scale_size(name = "Richter scale", limits = c(5, 8)) + 
+    scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
+```
+
+
+## Creating interactive maps
+
+Using the *eq_map()* and *eq_create_label()* functions, interactive maps with popup-info boxes can be created. The *eq_map()* function expects a dataframe that contains at least a LONGITUDE, LATITUDE and EQ_PRIMARY column to create a map with the marker sizes proportional to the size of the events. if **annot_col** is specified, the popup-info labels will contain the label text (formatted in HTML) from that column. A second funtion, *eq_create_label()*, is designed to create label text from the columns specified by line_1, line_2 and line_3 variables. By default these will be set to LOCATION, EQ_PRIMARY and TOTAL_DEATHS.
+
+```{r simple_ia_map}
+dataFile <- system.file("extdata", "earthquakes.tsv.gz", package = "NOAAearthquakeAnalysis")
+readr::read_delim(dataFile, delim = "\t") %>% 
+    eq_clean_data() %>% 
+    dplyr::filter(STATE == "CA" & lubridate::year(DATE) >= 1985) %>% 
+    eq_map(annot_col = "DATE")
+```
+
+Or by using the eq_create_label function with defauult choices of lines, a more informative popup-text is created:
+
+```{r more_detailed_ia_map}
+# or with more detailed popup_info
+dataFile <- system.file("extdata", "earthquakes.tsv.gz", package = "NOAAearthquakeAnalysis")
+readr::read_delim(dataFile, delim = "\t") %>% 
+    eq_clean_data() %>% 
+    dplyr::filter(STATE == "CA" & lubridate::year(DATE) >= 1985) %>% 
+    dplyr::mutate(popup_text = eq_create_label(.)) %>% 
+    eq_map(annot_col = "popup_text")
+```
+
