@@ -39,3 +39,13 @@ dataFile %>%
     dplyr::mutate(popup_text = eq_create_label(.)) %>% 
     eq_map(annot_col = "popup_text")
 ```
+The result of this in stills (the map produced in R is an interactive map with the markers clickable to reveal popup text balloons with extra info) is:
+
+![](README_plot.png)
+
+
+![](README_map.png)
+
+## Author
+
+[RM Hoek](https://github.com/RMHoek)
