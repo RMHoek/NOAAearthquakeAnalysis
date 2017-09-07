@@ -54,30 +54,31 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{required_aes}{x, label with x the date of data points plotted and label 
+\item{required_aes}{x, label with x the date of data points plotted and label
 the variable containing the label text}
 }
 \value{
 Grob representing labels for timeline(s) with datapoints
 }
 \description{
-This geom creates labels for a timeline plot using dates 
+This geom creates labels for a timeline plot using dates
 (requires \code{x} aesthetics), and the label text (requires \code{label}
-aesthetics) with optional maximal number of labels (depending on optional 
+aesthetics) with optional maximal number of labels (depending on optional
 \code{n_max} aesthetics) of the largest events by size param in geom_timeline.
 }
 \examples{
 \dontrun{
-eq_data \%>\% eq_clean_data() \%>\% 
-   filter(COUNTRY \%in\% c("AUSTRALIA", "JAPAN"), YEAR > 1800) \%>\% 
-   ggplot(aes(x = DATE, 
-              y = COUNTRY, 
-              color = TOTAL_DEATHS, 
-              size = EQ_PRIMARY)) + 
-   geom_timeline() + 
-   geom_timeline_label(aes(label = LOCATION), n_max = 8) + 
-   theme_timeline() + 
-   labs(size = "Richter scale value", color = "# deaths")
+eq_data \%>\% eq_clean_data() \%>\%
+   filter(COUNTRY \%in\% c("GREECE", "ITALY"), year(DATE) > 2000) \%>\%
+   ggplot(aes(x = DATE,
+                  y = COUNTRY,
+                  color = TOTAL_DEATHS,
+                  size = EQ_PRIMARY)) +
+   geom_timeline() +
+   geom_timeline_label(aes(label = LOCATION), n_max = 8) +
+   theme_timeline() +
+   scale_size(name = "Richter scale", limits = c(5, 8)) +
+   scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
 }
 
 }

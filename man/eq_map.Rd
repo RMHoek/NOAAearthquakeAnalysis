@@ -12,7 +12,7 @@ LATITUDE: latitude info of earthquake events
 LONGITUDE: longitude info of earthquake events
 EQ_PRIMARY: size of earthquake event on Richter scale}
 
-\item{annot_col}{the name of a column present in \code{data} to be used as 
+\item{annot_col}{the name of a column present in \code{data} to be used as
 annotation text in the interactive map}
 }
 \value{
@@ -21,16 +21,16 @@ leaflet interactive map
 \description{
 This function creates an interactive map using a data.frame with
 columns "LATITUDE", LONGITUDE" for marker position and "EQ_PRIMARY" for marker
-size. Furthermore, the function creates popup_info labels based on the 
-\code{annot_col} column present in the data.frame. It returns an interactive 
+size. Furthermore, the function creates popup_info labels based on the
+\code{annot_col} column present in the data.frame. It returns an interactive
 map with popup-text annotations.
 }
 \examples{
 \dontrun{
 # assuming earthquake data is in the file earthquakes.tvs.gz in the wd
-readr::read_delim("earthquakes.tsv.gz", delim = "\\t") \%>\% 
-    eq_clean_data() \%>\% 
-    dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\% 
+readr::read_delim("earthquakes.tsv.gz", delim = "\\t") \%>\%
+    eq_clean_data() \%>\%
+    dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000) \%>\%
     eq_map(annot_col = "DATE")
 }
 

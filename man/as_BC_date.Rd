@@ -17,13 +17,12 @@ and then subtract from 0 AD.
 \note{
 this function is for internal use
 
-the year can be passed as negative or positive, the function assumes 
+the year can be passed as negative or positive, the function assumes
 the user needs a BC date
 }
 \examples{
 \dontrun{
-   datesFrame <- noaa_data \%>\% dplyr::select(YEAR, MONTH, DAY)
-   datesFrame <- unite_YMD(datesFrame)
+   BCDate <- as_BC_date(-2150, 1, 1)
 }
 
 }

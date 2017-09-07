@@ -28,8 +28,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'    datesFrame <- noaa_data %>% dplyr::select(YEAR, MONTH, DAY)
-#'    datesFrame <- unite_YMD(datesFrame)
+#'    BCDate <- as_BC_date(-2150, 1, 1)
 #' }
 #'
 #' @importFrom lubridate as_date

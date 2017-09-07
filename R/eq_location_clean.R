@@ -16,13 +16,13 @@
 
 #' Function to clean the location info in noaa earthquake data set
 #'
-#' @description This function creates labels for an interactive map using
-#' "LOCATION", EQ_PRIMARY" AND "TOTAL_DEATHS" columns from a data.frame
-#' (\code{data} variable). It will omit all \code{NA} info from the label text,
-#' and returns a single column data.frame with the label text.
+#' @description This function cleans the info in the original NOAA data.frame
+#' column "LOCATION_NAME", stripping redundant info like country name and
+#' secundary location descriptions. It returns a single column data.frame with
+#' the location text.
 #'
-#' @param row_location a data.frame containing the LOCATION_NAME column from the
-#' naoo dataset
+#' @param row_location a single column data.frame containing the LOCATION_NAME
+#' column from the naoo dataset
 #'
 #' @return data.frame containing cleaned location data in one column
 #'

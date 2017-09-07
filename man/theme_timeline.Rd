@@ -10,22 +10,23 @@ theme_timeline()
 theme
 }
 \description{
-This theme can be added to the plot made by geom_timeline, it 
-only adds an x-axis and positions the legend to the bottom with a horizontal 
+This theme can be added to the plot made by geom_timeline, it
+only adds an x-axis and positions the legend to the bottom with a horizontal
 direction
 }
 \examples{
 \dontrun{
-eq_data \%>\% eq_clean_data() \%>\% 
-   filter(COUNTRY \%in\% c("AUSTRALIA", "JAPAN"), YEAR > 1800) \%>\% 
-   ggplot(aes(x = DATE, 
-              y = COUNTRY, 
-              color = TOTAL_DEATHS, 
-              size = EQ_PRIMARY)) + 
-   geom_timeline() + 
-   geom_timeline_label(aes(label = LOCATION), n_max = 8) + 
-   theme_timeline() + 
-   labs(size = "Richter scale value", color = "# deaths")
+eq_data \%>\% eq_clean_data() \%>\%
+   filter(COUNTRY \%in\% c("GREECE", "ITALY"), year(DATE) > 2000) \%>\%
+   ggplot(aes(x = DATE,
+                  y = COUNTRY,
+                  color = TOTAL_DEATHS,
+                  size = EQ_PRIMARY)) +
+   geom_timeline() +
+   geom_timeline_label(aes(label = LOCATION), n_max = 8) +
+   theme_timeline() +
+   scale_size(name = "Richter scale", limits = c(5, 8)) +
+   scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
 }
 
 }

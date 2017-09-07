@@ -25,15 +25,16 @@
 #' @examples
 #' \dontrun{
 #' eq_data %>% eq_clean_data() %>%
-#'    filter(COUNTRY %in% c("AUSTRALIA", "JAPAN"), YEAR > 1800) %>%
+#'    filter(COUNTRY %in% c("GREECE", "ITALY"), year(DATE) > 2000) %>%
 #'    ggplot(aes(x = DATE,
-#'               y = COUNTRY,
-#'               color = TOTAL_DEATHS,
-#'               size = EQ_PRIMARY)) +
+#'                   y = COUNTRY,
+#'                   color = TOTAL_DEATHS,
+#'                   size = EQ_PRIMARY)) +
 #'    geom_timeline() +
 #'    geom_timeline_label(aes(label = LOCATION), n_max = 8) +
 #'    theme_timeline() +
-#'    labs(size = "Richter scale value", color = "# deaths")
+#'    scale_size(name = "Richter scale", limits = c(5, 8)) +
+#'    scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
 #' }
 #'
 #' @importFrom ggplot2 theme element_blank element_line

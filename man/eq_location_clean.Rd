@@ -7,17 +7,17 @@
 eq_location_clean(raw_location)
 }
 \arguments{
-\item{row_location}{a data.frame containing the LOCATION_NAME column from the
-naoo dataset}
+\item{row_location}{a single column data.frame containing the LOCATION_NAME
+column from the naoo dataset}
 }
 \value{
 data.frame containing cleaned location data in one column
 }
 \description{
-This function creates labels for an interactive map using 
-"LOCATION", EQ_PRIMARY" AND "TOTAL_DEATHS" columns from a data.frame 
-(\code{data} variable). It will omit all \code{NA} info from the label text,
-and returns a single column data.frame with the label text.
+This function cleans the info in the original NOAA data.frame
+column "LOCATION_NAME", stripping redundant info like country name and
+secundary location descriptions. It returns a single column data.frame with
+the location text.
 }
 \note{
 this function is for internal use
