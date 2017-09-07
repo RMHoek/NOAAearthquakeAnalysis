@@ -2,6 +2,8 @@
 
 This package was created to analyse earthquake data from NOAA
 
+[![Travis-CI Build Status](https://travis-ci.org/RMHoek/NOAAearthquakeAnalysis.svg?branch=master)](https://travis-ci.org/RMHoek/NOAAearthquakeAnalysis)
+
 ## Description
 
 The goal of NOAAearthquakeAnalysis is to facilitate access and aid in the analysis of the wealth of information embedded in the Significant Earthquake Database (SED) of the NOAA. This data can be found at <https://www.ngdc.noaa.gov/nndc/struts/results?type_0=Exact&query_0=$ID&t=101650&s=13&d=189&dfn=signif.txt> The functions contained in this package enable the user to clean the database to the essential variables, graph SED data on a time-line graph, and create interactive maps that can be annotated with SED data.
