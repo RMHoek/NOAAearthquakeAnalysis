@@ -20,6 +20,10 @@
 #' hence this function creates the BC date by first projecting the date as AD,
 #' and then subtract from 0 AD.
 #'
+#' @param year the year BC (either + or -)
+#' @param month the calender month, if omitted 01 is asumed
+#' @param day the day of that month, if omitted 01 is assumed
+#'
 #' @return date as BC date
 #'
 #' @note this function is for internal use
