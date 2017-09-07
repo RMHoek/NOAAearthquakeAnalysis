@@ -2,7 +2,7 @@ context("test file for NOAAearthquakeAnalysis package")
 
 dataFile <- system.file("extdata", "earthquakes.tsv.gz",
                         package = "NOAAearthquakeAnalysis")
-theData <- readr::read_delim(dataFile, delim = "\t") %>% eq_clean_data()
+theData <- readr::read_delim(dataFile, delim = "\t")
 theCleanData <- theData %>% eq_clean_data()
 g <- theCleanData %>%
     dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), year(DATE) > 2000) %>%
@@ -22,30 +22,27 @@ testthat::test_that("eq_clean_data returns df with 17 variables", {
     testthat::expect_equal(l, 17)
 })
 
-testthat::test_that("eq_location_clean returns data.frame"{
+testthat::test_that("eq_location_clean returns data.frame", {
     df <- eq_location_clean(theData$LOCATION_NAME)
     testthat::expect_is(df, "data.frame")
 })
 
-testthat::test_that("eq_location_clean returns type character"{
+testthat::test_that("eq_location_clean returns type character", {
     df <- eq_location_clean(theData$LOCATION_NAME)
     temp <- as.vector(as.matrix(df[1,]))
     testthat::expect_is(temp, "character")
 })
 
 testthat::test_that("unite_YMD returns single column data.frame", {
-    df <- as.data.frame(cbind(theData$YEAR, theData$MONTH, theData$DAY))
-    names(df) <- c("YEAR", "MONTH", "DAY")
+    df <- theData %>% dplyr::select(YEAR, MONTH, DAY)
     df <- NOAAearthquakeAnalysis::unite_YMD(df)
     testthat::expect_is(df, "data.frame")
 })
 
 testthat::test_that("unite_YMD returns dates", {
-    df <- as.data.frame(cbind(theData$YEAR, theData$MONTH, theData$DAY))
-    names(df) <- c("YEAR", "MONTH", "DAY")
+    df <- theData %>% dplyr::select(YEAR, MONTH, DAY)
     df <- NOAAearthquakeAnalysis::unite_YMD(df)
-    someDate <- df[1,]
-    testthat::expect_is(someDate, "date")
+    testthat::expect_true(sapply(df, class) == "Date")
 })
 
 testthat::test_that("as_BC_date returns date before 0AD", {
@@ -77,12 +74,12 @@ testthat::test_that("GeomTimeline returns ggplot object", {
 })
 
 testthat::test_that("GeomTimeline_label returns ggplot object", {
-    gtest <- g + geom_timeline_label(aes(location = LOCATION))
+    gtest <- g + geom_timeline_label(aes(label = LOCATION))
     expect_is(gtest, "ggplot")
 })
 
 testthat::test_that("GeomTimeline_label with n_max returns ggplot object", {
-    gtest <- g + geom_timeline_label(aes(location = LOCATION), n_max = 8)
+    gtest <- g + geom_timeline_label(aes(label = LOCATION), n_max = 8)
     expect_is(gtest, "ggplot")
 })
 
