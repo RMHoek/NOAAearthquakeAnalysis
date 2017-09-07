@@ -23,12 +23,12 @@ testthat::test_that("eq_clean_data returns df with 17 variables", {
 })
 
 testthat::test_that("eq_location_clean returns data.frame", {
-    df <- eq_location_clean(theData$LOCATION_NAME)
+    df <- NOAAearthquakeAnalysis::eq_location_clean(theData$LOCATION_NAME)
     testthat::expect_is(df, "data.frame")
 })
 
 testthat::test_that("eq_location_clean returns type character", {
-    df <- eq_location_clean(theData$LOCATION_NAME)
+    df <- NOAAearthquakeAnalysis::eq_location_clean(theData$LOCATION_NAME)
     temp <- as.vector(as.matrix(df[1,]))
     testthat::expect_is(temp, "character")
 })
