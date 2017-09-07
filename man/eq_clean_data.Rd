@@ -7,7 +7,21 @@
 eq_clean_data(df)
 }
 \arguments{
-\item{df}{a data.frame containing columns named:
+\item{df}{a data.frame containing columns named in note}
+}
+\value{
+data.frame containing the (reformatted) columns described above
+}
+\description{
+this function expects a data.frame containing the columns
+detailed below. It will create a dataframe containing
+- a new \code{LOCATION} column containing the cleaned data from the
+\code{LOCATION_NAME} column
+- a new \code{DATE} column in date format from the YEAR, MONTH and DAY info
+- latitude, longitude and all columns starting with TOTAL_* to numeric format
+}
+\note{
+the columns are:
 I_D: the ID of the event given by the naoo
 FLAG_TSUNAMI: if the event gave rise to a tsunami
 YEAR: the year of the event
@@ -26,18 +40,7 @@ TOTAL_MISSING: total number of missing from the event
 TOTAL_INJURIES: total number of injured from the event
 TOTAL_DAMAGE_MILLIONS_DOLLARS: total amount of damages from the event
 TOTAL_HOUSES_DESTROYED: total number of houses destroyed by the event
-TOTAL_HOUSES_DAMAGED: total number of houses damaged by the event}
-}
-\value{
-data.frame containing the (reformatted) columns described above
-}
-\description{
-this function expects a data.frame containing the columns
-detailed below. It will create a dataframe containing
-- a new \code{LOCATION} column containing the cleaned data from the
-\code{LOCATION_NAME} column
-- a new \code{DATE} column in date format from the YEAR, MONTH and DAY info
-- latitude, longitude and all columns starting with TOTAL_* to numeric format
+TOTAL_HOUSES_DAMAGED: total number of houses damaged by the event
 }
 \examples{
 \dontrun{

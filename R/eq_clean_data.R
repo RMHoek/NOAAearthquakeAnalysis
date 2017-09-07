@@ -23,7 +23,9 @@
 #' - a new \code{DATE} column in date format from the YEAR, MONTH and DAY info
 #' - latitude, longitude and all columns starting with TOTAL_* to numeric format
 #'
-#' @param df a data.frame containing columns named:
+#' @param df a data.frame containing columns named in note
+#'
+#' @note the columns are:
 #' I_D: the ID of the event given by the naoo
 #' FLAG_TSUNAMI: if the event gave rise to a tsunami
 #' YEAR: the year of the event
