@@ -7,7 +7,7 @@
 eq_clean_data(df)
 }
 \arguments{
-\item{df}{a data.frame containing columns named in note}
+\item{df}{a data.frame containing columns named in note below}
 }
 \value{
 data.frame containing the (reformatted) columns described above

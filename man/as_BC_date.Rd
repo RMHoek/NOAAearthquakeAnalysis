@@ -6,6 +6,13 @@
 \usage{
 as_BC_date(year, month = 1, day = 1)
 }
+\arguments{
+\item{year}{the year BC (either + or -)}
+
+\item{month}{the calender month, if omitted 01 is asumed}
+
+\item{day}{the day of that month, if omitted 01 is assumed}
+}
 \value{
 date as BC date
 }
