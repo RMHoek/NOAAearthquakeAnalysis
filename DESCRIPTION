@@ -6,7 +6,7 @@ Author: RM Hoek
 Maintainer: The package maintainer <rmhoek66@gmail.com>
 Description: This package helps in the data analysis of Significant Earthquake Database from the U.S. National Oceanographic and Atmospheric Administration (NOAA).
     Please refer to the package vignette for detailed explanation.
-License: GPL-3
+License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

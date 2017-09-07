@@ -35,6 +35,7 @@
 #'
 #' @importFrom stringr str_split str_to_title
 #' @importFrom dplyr as_data_frame
+#' @importFrom utils tail
 
 
 eq_location_clean <- function(raw_location){
@@ -42,7 +43,7 @@ eq_location_clean <- function(raw_location){
     clntxt <- stringr::str_split(raw_location, ";")
     clntxt <- sapply(clntxt, "[[", 1)
     clntxt <- stringr::str_split(clntxt, ": ")
-    clntxt <- lapply(clntxt, tail, n=1L)
+    clntxt <- lapply(clntxt, utils::tail, n=1L)
     clntxt <- lapply(clntxt, stringr::str_to_title)
     clntxt <- unlist(clntxt)
     clntxt <- dplyr::as_data_frame(clntxt)
