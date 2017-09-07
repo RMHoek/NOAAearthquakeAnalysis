@@ -11,7 +11,7 @@ NULL
 
 ## to quiet concerns of 'R CMD check' re: the .'s that appear in pipes
 utils::globalVariables(c("COUNTRY", "DAY", "EQ_PRIMARY", "FLAG_TSUNAMI",
-                         "FOCAL_DEPTH", "INTENSITY I_D", "LATITUDE",
+                         "FOCAL_DEPTH", "INTENSITY", "I_D", "LATITUDE",
                          "LOCATION_NAME", "LONGITUDE", "MONTH", "STATE",
                          "TOTAL_DAMAGE_MILLIONS_DOLLARS", "TOTAL_DEATHS",
                          "TOTAL_HOUSES_DAMAGED", "TOTAL_HOUSES_DESTROYED",

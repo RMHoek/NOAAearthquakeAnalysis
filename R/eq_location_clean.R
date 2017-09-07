@@ -21,7 +21,7 @@
 #' secundary location descriptions. It returns a single column data.frame with
 #' the location text.
 #'
-#' @param row_location a single column data.frame containing the LOCATION_NAME
+#' @param raw_location a single column data.frame containing the LOCATION_NAME
 #' column from the naoo dataset
 #'
 #' @return data.frame containing cleaned location data in one column
