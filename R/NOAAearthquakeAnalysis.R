@@ -10,4 +10,10 @@
 NULL
 
 ## to quiet concerns of 'R CMD check' re: the .'s that appear in pipes
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
+utils::globalVariables(c("COUNTRY", "DAY", "EQ_PRIMARY", "FLAG_TSUNAMI",
+                         "FOCAL_DEPTH", "INTENSITY I_D", "LATITUDE",
+                         "LOCATION_NAME", "LONGITUDE", "MONTH", "STATE",
+                         "TOTAL_DAMAGE_MILLIONS_DOLLARS", "TOTAL_DEATHS",
+                         "TOTAL_HOUSES_DAMAGED", "TOTAL_HOUSES_DESTROYED",
+                         "TOTAL_INJURIES", "TOTAL_MISSING", "YEAR",
+                         "popup_text"))
