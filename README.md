@@ -22,16 +22,17 @@ theData <- readr::read_delim(dataFile, delim = "\t") %>% eq_clean_data()
 
 # then use the data for a timeline plot:
 dataFile %>% 
-    filter(COUNTRY %in% c("GREECE", "ITALY"), year(DATE) > 2000) %>% 
-    ggplot(aes(x = DATE, 
-               y = COUNTRY, 
-               color = TOTAL_DEATHS, 
-               size = EQ_PRIMARY)) + 
+    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), 
+                  lubridate::year(DATE) > 2000) %>% 
+    ggplot2::ggplot(ggplot2::aes(x = DATE, 
+                                 y = COUNTRY, 
+                                 color = TOTAL_DEATHS, 
+                                 size = EQ_PRIMARY)) + 
     geom_timeline() + 
     geom_timeline_label(aes(label = LOCATION), n_max = 8) + 
     theme_timeline() + 
-    scale_size(name = "Richter scale", limits = c(5, 8)) + 
-    scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
+    ggplot2::scale_size(name = "Richter scale", limits = c(5, 8)) + 
+    ggplot2::scale_color_gradient(name = "# Deaths", low = "black", high = "blue")
 
 # or use the data to create an interactive map:
 dataFile %>% 
