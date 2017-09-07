@@ -5,7 +5,7 @@ dataFile <- system.file("extdata", "earthquakes.tsv.gz",
 theData <- readr::read_delim(dataFile, delim = "\t")
 theCleanData <- theData %>% eq_clean_data()
 g <- theCleanData %>%
-    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), year(DATE) > 2000) %>%
+    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), lubridate::year(DATE) > 2000) %>%
     ggplot2::ggplot(ggplot2::aes(x = DATE,
                                  y = COUNTRY,
                                  color = TOTAL_DEATHS,
