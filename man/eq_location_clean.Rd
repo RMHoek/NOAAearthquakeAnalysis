@@ -7,7 +7,7 @@
 eq_location_clean(raw_location)
 }
 \arguments{
-\item{row_location}{a single column data.frame containing the LOCATION_NAME
+\item{raw_location}{a single column data.frame containing the LOCATION_NAME
 column from the naoo dataset}
 }
 \value{
