@@ -21,9 +21,9 @@
 #' to group data by selected variable). Furthermore size and colour can be
 #' linked to numeric variables.
 #'
-#' @param required_aes x date of data points to be plotted
-#' @param default_aes y, size, colour with y=0.1, size=3, colour="grey"
 #' @inheritParams ggplot2::geom_point
+#' @note required_aes x date of data points to be plotted
+#' @note default_aes y, size, colour with y=0.1, size=3, colour="grey"
 #'
 #' @return Grob representing timeline(s) and datapoints
 #'

@@ -21,11 +21,11 @@
 #' aesthetics) with optional maximal number of labels (depending on optional
 #' \code{n_max} aesthetics) of the largest events by size param in geom_timeline.
 #'
-#' @param required_aes x, label with x the date of data points plotted and label
-#' the variable containing the label text
 #' @param n_max An integer. If used, it only plots the labels for the
 #' \code{n_max} largest earthquakes in the selected group in the timeline
 #' @inheritParams ggplot2::geom_text
+#' @note required_aes x, label with x the date of data points plotted and label
+#' the variable containing the label text
 #'
 #' @return Grob representing labels for timeline(s) with datapoints
 #'
