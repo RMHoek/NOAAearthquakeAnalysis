@@ -53,9 +53,6 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{required_aes}{x, label with x the date of data points plotted and label
-the variable containing the label text}
 }
 \value{
 Grob representing labels for timeline(s) with datapoints
@@ -65,6 +62,10 @@ This geom creates labels for a timeline plot using dates
 (requires \code{x} aesthetics), and the label text (requires \code{label}
 aesthetics) with optional maximal number of labels (depending on optional
 \code{n_max} aesthetics) of the largest events by size param in geom_timeline.
+}
+\note{
+required_aes x, label with x the date of data points plotted and label
+the variable containing the label text
 }
 \examples{
 \dontrun{

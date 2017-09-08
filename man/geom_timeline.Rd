@@ -50,10 +50,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{required_aes}{x date of data points to be plotted}
-
-\item{default_aes}{y, size, colour with y=0.1, size=3, colour="grey"}
 }
 \value{
 Grob representing timeline(s) and datapoints
@@ -63,6 +59,11 @@ This geom plots a timeline of dates (requires \code{x} date
 aesthetics) in one or more lines (depending on optional \code{y} aesthetics
 to group data by selected variable). Furthermore size and colour can be
 linked to numeric variables.
+}
+\note{
+required_aes x date of data points to be plotted
+
+default_aes y, size, colour with y=0.1, size=3, colour="grey"
 }
 \examples{
 \dontrun{
