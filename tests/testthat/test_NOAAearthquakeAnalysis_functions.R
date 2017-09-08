@@ -23,30 +23,30 @@ testthat::test_that("eq_clean_data returns df with 17 variables", {
 })
 
 testthat::test_that("eq_location_clean returns data.frame", {
-    df <- NOAAearthquakeAnalysis::eq_location_clean(theData$LOCATION_NAME)
+    df <- eq_location_clean(theData$LOCATION_NAME)
     testthat::expect_is(df, "data.frame")
 })
 
 testthat::test_that("eq_location_clean returns type character", {
-    df <- NOAAearthquakeAnalysis::eq_location_clean(theData$LOCATION_NAME)
+    df <- eq_location_clean(theData$LOCATION_NAME)
     temp <- as.vector(as.matrix(df[1,]))
     testthat::expect_is(temp, "character")
 })
 
 testthat::test_that("unite_YMD returns single column data.frame", {
     df <- theData %>% dplyr::select(YEAR, MONTH, DAY)
-    df <- NOAAearthquakeAnalysis::unite_YMD(df)
+    df <- unite_YMD(df)
     testthat::expect_is(df, "data.frame")
 })
 
 testthat::test_that("unite_YMD returns dates", {
     df <- theData %>% dplyr::select(YEAR, MONTH, DAY)
-    df <- NOAAearthquakeAnalysis::unite_YMD(df)
+    df <- unite_YMD(df)
     testthat::expect_true(sapply(df, class) == "Date")
 })
 
 testthat::test_that("as_BC_date returns date before 0AD", {
-    BCD <- NOAAearthquakeAnalysis::as_BC_date(-1966, 10, 16)
+    BCD <- as_BC_date(-1966, 10, 16)
     YearZero <- as.Date(0, origin = "0000-01-01")
     testthat::expect_true(BCD < YearZero)
 })
