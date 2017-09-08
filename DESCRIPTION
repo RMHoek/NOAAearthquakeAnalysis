@@ -3,8 +3,10 @@ Type: Package
 Title: Data analysis of Significant Earthquake Data from the NOAA
 Version: 0.1.0
 Author: RM Hoek
-Maintainer: The package maintainer <rmhoek66@gmail.com>
-Description: This package helps in the data analysis of Significant Earthquake Database from the U.S. National Oceanographic and Atmospheric Administration (NOAA).
+Maintainer: RM Hoek <rmhoek66@gmail.com>
+Description: This package helps in the data analysis of Significant
+    Earthquake Database from the U.S. National Oceanographic and
+    Atmospheric Administration (NOAA).
     Please refer to the package vignette for detailed explanation.
 License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
