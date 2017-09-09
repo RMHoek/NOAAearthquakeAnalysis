@@ -21,6 +21,8 @@
 #' to group data by selected variable). Furthermore size and colour can be
 #' linked to numeric variables.
 #'
+#' @param xmin A date. If used the plot will start from this date
+#' @param xmax A date. If used the plot will end at this date
 #' @inheritParams ggplot2::geom_point
 #' @note required_aes x date of data points to be plotted
 #' @note default_aes y, size, colour with y=0.1, size=3, colour="grey"
@@ -45,10 +47,10 @@
 #' @importFrom ggplot2 layer
 #' @export
 
-geom_timeline <- function(mapping = NULL, data = NULL,
-                          stat = "identity", position = "identity",
-                          na.rm = FALSE, show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
+                          position = "identity", ..., na.rm = FALSE,
+                          xmin = NULL, xmax = NULL, show.legend = NA,
+                          inherit.aes = TRUE) {
     ggplot2::layer(
         geom = GeomTimeline,
         mapping = mapping,
@@ -57,9 +59,7 @@ geom_timeline <- function(mapping = NULL, data = NULL,
         position = position,
         show.legend = show.legend,
         inherit.aes = inherit.aes,
-        params = list(
-            na.rm = na.rm, ...
-        )
+        params = list(na.rm = na.rm, xmin = xmin, xmax = xmax, ...)
     )
 }
 
@@ -69,6 +69,8 @@ geom_timeline <- function(mapping = NULL, data = NULL,
 #'
 #' @importFrom ggplot2 ggproto Geom aes draw_key_point
 #' @importFrom grid polylineGrob unit gpar pointsGrob gList
+#' @importFrom dplyr filter
+#' @importFrom magrittr %>%
 #' @importFrom scales alpha
 
 
@@ -76,10 +78,21 @@ GeomTimeline <- ggplot2::ggproto(
     "GeomTimeline", ggplot2::Geom,
     required_aes = c("x"),
     default_aes = ggplot2::aes(y = 0.1, size = 3, colour = "grey",
-                               fill = "grey", alpha = 0.6, shape = 21,
-                               stroke = 0.5),
+                               fill = "grey", alpha = 0.6,
+                               shape = 21, stroke = 0.5),
     draw_key = ggplot2::draw_key_point,
-    draw_panel = function(data, panel_scales, coord){
+    setup_data = function(data, params) {
+        if(!is.null(params$xmin)) {
+            data <- data %>%
+                dplyr::filter(data$x >= params$xmin)
+        }
+        if(!is.null(params$xmax)) {
+            data <- data %>%
+                dplyr::filter(data$x <= params$xmax)
+        }
+        data
+    },
+    draw_panel = function(data, panel_scales, coord, xmin, xmax){
         # if no points in data, return nullGrob
         if (nrow(data) == 0) return(nullGrob())
         # if 'y' coordinate not defined, add default

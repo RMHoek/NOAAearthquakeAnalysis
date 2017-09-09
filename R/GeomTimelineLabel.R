@@ -23,6 +23,8 @@
 #'
 #' @param n_max An integer. If used, it only plots the labels for the
 #' \code{n_max} largest earthquakes in the selected group in the timeline
+#' @param xmin A date. If used the plot will start from this date
+#' @param xmax A date. If used the plot will end at this date
 #' @inheritParams ggplot2::geom_text
 #' @note required_aes x, label with x the date of data points plotted and label
 #' the variable containing the label text
@@ -50,14 +52,14 @@
 
 geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
                                 position = "identity", ..., na.rm = FALSE,
-                                n_max = NULL, show.legend = NA,
-                                inherit.aes = TRUE) {
-
+                                n_max = NULL, xmin = NULL, xmax = NULL,
+                                show.legend = NA, inherit.aes = TRUE) {
     ggplot2::layer(
         geom = GeomTimelineLabel, mapping = mapping,
         data = data, stat = stat, position = position,
         show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n_max = n_max, ...)
+        params = list(na.rm = na.rm, n_max = n_max, xmin = xmin,
+                      xmax = xmax, ...)
     )
 }
 
@@ -76,11 +78,20 @@ GeomTimelineLabel <-
         required_aes = c("x", "label"),
         draw_key = ggplot2::draw_key_blank,
         setup_data = function(data, params) {
+            if(!is.null(params$xmin)) {
+                data <- data %>%
+                    dplyr::filter(data$x >= params$xmin)
+            }
+            if(!is.null(params$xmax)) {
+                data <- data %>%
+                    dplyr::filter(data$x <= params$xmax)
+            }
             if (!is.null(params$n_max)) {
                 if (!("size" %in% colnames(data))) {
                     stop(paste("The 'size' aesthetics is required if",
                                "the 'n_max' aesthetics is defined."))
                 }
+
                 data <- data %>%
                     dplyr::group_by_("group") %>%
                     dplyr::top_n(params$n_max, size) %>%
@@ -88,7 +99,7 @@ GeomTimelineLabel <-
             }
             data
         },
-        draw_panel = function(data, panel_scales, coord, n_max) {
+        draw_panel = function(data, panel_scales, coord, n_max, xmin, xmax) {
 
             if (!("y" %in% colnames(data))) {
                 data$y <- 0.1

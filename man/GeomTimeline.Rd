@@ -4,7 +4,7 @@
 \name{GeomTimeline}
 \alias{GeomTimeline}
 \title{ggproto class for geom_timeline}
-\format{An object of class \code{GeomTimeline} (inherits from \code{Geom}, \code{ggproto}) of length 5.}
+\format{An object of class \code{GeomTimeline} (inherits from \code{Geom}, \code{ggproto}) of length 6.}
 \usage{
 GeomTimeline
 }

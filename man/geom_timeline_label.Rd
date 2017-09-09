@@ -5,8 +5,8 @@
 \title{Create labels for a timeline diagram}
 \usage{
 geom_timeline_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, n_max = NULL,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, n_max = NULL, xmin = NULL,
+  xmax = NULL, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -44,6 +44,10 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{n_max}{An integer. If used, it only plots the labels for the
 \code{n_max} largest earthquakes in the selected group in the timeline}
+
+\item{xmin}{A date. If used the plot will start from this date}
+
+\item{xmax}{A date. If used the plot will end at this date}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
