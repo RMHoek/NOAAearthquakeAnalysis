@@ -27,21 +27,18 @@ As part of the U.S. National Oceanographic and Atmospheric Administration (NOAA)
 First the data from the NOAA website needs to be downloaded and prepared for use This can be done in R using the following code:
 
 ```{r data_Gather_Clean}
-# you can obtain the most recent earthquake data as a tab-delimited txt file from noaa website, and put it in a tibble format with:
-# eq_data_file <- paste0("https://www.ngdc.noaa.gov/nndc/struts/", 
-#                        "results?type_0=Exact&query_0=$ID&", 
-#                        "t=101650&s=13&d=189&dfn=signif.txt")
-# eq_data <- readr::read_delim(eq_data_file, delim = "\t")
-
-# this can be written to the working directory for later use with:
+#get earthquake data (tab-delimited txt file) from noaa website into a tibble
+eq_data_file <- paste0("https://www.ngdc.noaa.gov/nndc/struts/", 
+                       "results?type_0=Exact&query_0=$ID&", 
+                       "t=101650&s=13&d=189&dfn=signif.txt")
+eq_data <- readr::read_delim(eq_data_file, delim = "\t")
+# the data can be written to the wd for later use:
 # readr::write_tsv(eq_data, file.path(getwd(), "earthquakes.tsv.gz"))
 
 ## an example of the data downloaded on 27 July 2017 is present in 
-## this package in /extdata, that file is used here as an example:
-
-dataFile <- system.file("extdata", "earthquakes.tsv.gz", 
-                        package = "NOAAearthquakeAnalysis")
-eq_data <- readr::read_delim(dataFile, delim = "\t") %>% eq_clean_data()
+## this package in /extdata, use: 
+## system.file("extdata", "earthquakes.tsv.gz", 
+##             package = "NOAAearthquakeAnalysis")
 
 # next, clean the data (see for details below, and MAN of eq_clean_data())
 eq_data_clean <- eq_clean_data(eq_data)
